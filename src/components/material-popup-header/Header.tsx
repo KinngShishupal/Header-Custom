@@ -6,11 +6,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import AppBar from "@mui/material/AppBar";
 import { HeaderStyle } from "./ModalComponent";
 
-// import { createTheme } from '@mui/material/styles';
-
 interface HeaderProps {
   leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   onLeftPress: React.MouseEventHandler<HTMLButtonElement>;
+  onRightPress?: React.MouseEventHandler<HTMLButtonElement>;
   title: string;
   children: React.ReactNode;
   headerStyle?: HeaderStyle;
@@ -19,7 +19,9 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = (props) => {
   const {
     leftIcon = <CloseIcon />,
+    rightIcon,
     onLeftPress,
+    onRightPress,
     title,
     headerStyle,
     children,
@@ -31,7 +33,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           <IconButton
             edge="start"
             color="inherit"
-            aria-label="menu"
+            aria-label="left-icon"
             sx={{ mr: 2 }}
             onClick={onLeftPress}
             size="large"
@@ -47,20 +49,23 @@ const Header: React.FC<HeaderProps> = (props) => {
           >
             {title}
           </Typography>
+          {rightIcon && (
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="right-icon"
+              sx={{ mr: 2 }}
+              onClick={onRightPress}
+              size="large"
+            >
+              {rightIcon}
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
       <div>{children}</div>
     </>
   );
 };
-
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: 'dark',
-//     primary: {
-//       main: '#1976d2',
-//     },
-//   },
-// });
 
 export default Header;
